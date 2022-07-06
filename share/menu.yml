@@ -1,7 +1,4 @@
 entries:
   option1:
-    description: Install from an existing repository.
-    action: ExistingRepo
-  option2:
-    description: Install from existing files (LEGACY setup)
+    description: Normal install
     action: LegacySetup

@@ -2,7 +2,9 @@ require "sysmgr.external" -- Include()
 local yaml = require("include.yaml")
 
 package.cpath = package.cpath .. ";cons/?.so"
+
 local lfs = require "lfs"
+local cpr = require "cpr"
 
 local recs = {}
 

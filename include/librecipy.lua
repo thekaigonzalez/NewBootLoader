@@ -13,7 +13,7 @@ function rpy:RecipeSkel(name)
     local skel = {}
 
     if (f ~= nil) then
-        local skeleton = yml.eval(f:read())
+        local skeleton = yml.eval(f:read("a"))
 
         skel['name'] = skeleton['info']['name']
         skel['desc'] = skeleton['info']['desc']

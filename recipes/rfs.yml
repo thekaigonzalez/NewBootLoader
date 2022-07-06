@@ -1,13 +1,13 @@
 info:
-  name: DASH
-  desc: Build DSH on NBL.
+  name: RFS
+  desc: Recipes From Scratch
   type: offline
 # Directly stolen from https://github.com/thekaigonzalez/Kux/blob/master/usr/bin/bootchooser.lua
 instructions:
   directories:
-    user: /usr
-    bootloader: /usr/bootloader
-    dsh-cmds: /usr/dsh
+    user: /user_dir
+    bootloader: /user_dir/boot_file
+    # dsh-cmds: /usr/dsh
     # Uncomment to add DVERSION
     # dsh-ver: /usr/dversion
   kernel:

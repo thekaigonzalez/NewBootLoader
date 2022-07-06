@@ -12,7 +12,6 @@ function string.starts(String,Start)
  
 
 for file in lfs.dir('recipes/') do
-    print(file==".")
     if (not string.starts(file, ".")) then
         table.insert (recs, file)
     end
@@ -23,6 +22,8 @@ local color = Include "colorLib"
 local menu = Include "libmenu"
 local rpy = Include "librecipy"
 local prompt = Include "prompted"
+
+Include "pure"
 
 local system = {}
 
@@ -39,7 +40,40 @@ Actions:Action('LegacySetup', function ()
 
     local repice = rpy:RecipeSkel(s)
 
-    print(repice.name)
+    local USR = nil
+    local BOOTLOADER = nil
+
+    local env_prefix = "." -- Prefix
+
+    for p, c in pairs(repice["instructions"]['directories']) do
+        print("[directory " .. p .. "]: " .. c)
+        if (p == "user") then
+            USR = c
+        elseif p == "bootloader" then
+            BOOTLOADER = c
+        end
+        lfs.mkdir(env_prefix .. c)
+    end
+
+    -- skel
+    for p, f in pairs(repice["instructions"]['kernel']) do
+        if (p == "rd") then
+            copy(env_prefix .. f,env_prefix..USR.."/system.lua")
+            print("system: copying system data: " .. f)
+        elseif (p == "boot") then
+            print("system: copying runner: " .. f)
+            copy(env_prefix .. f, env_prefix..BOOTLOADER.."/nblx64.lua")
+        end
+    end
+
+    print("exec: "..BOOTLOADER .. "/nblx64.lua -> ./" .. repice.name .. ".lua")
+
+    lfs.link(env_prefix..BOOTLOADER.."/nblx64.lua", "./" .. repice.name .. ".lua", true)
+
+    if io.open("./" .. repice.name..'.lua')~=nil then
+        print(color:colorful("NBL setup complete!"))
+    end
+
 
 end)
 

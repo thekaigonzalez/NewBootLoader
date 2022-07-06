@@ -9,7 +9,8 @@ function amgvm:Action(name, cb)
 end
 
 function amgvm:RunAction(name)
-    if not pcall(function() amgvm.__actions[name]();end)then print("hook return error");end
+    amgvm.__actions[name]()
+    -- if not pcall(function() amgvm.__actions[name]();end)then print("hook return error");end
 end
 
 return amgvm
